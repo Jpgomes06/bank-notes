@@ -28,7 +28,7 @@ Bank Notes is a script that allows users to request a withdrawal amount. The scr
 
 2. **Navigate to the project directory**
 ```bash
- cd bank-notes
+ cd bank-notes/v1
 ```
 
 3. **Install dependencies**
