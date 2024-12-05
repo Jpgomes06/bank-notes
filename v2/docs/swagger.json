@@ -1,0 +1,78 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "description": "This is an API for a withdrawal system.",
+        "title": "bank-notes",
+        "termsOfService": "http://swagger.io/terms/",
+        "contact": {},
+        "version": "1.0"
+    },
+    "paths": {
+        "/transaction": {
+            "post": {
+                "description": "Processes the withdrawal amount and calculates the required bank notes.",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Transactions"
+                ],
+                "summary": "Handle a withdrawal request",
+                "parameters": [
+                    {
+                        "description": "Transaction Data",
+                        "name": "transaction",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/presentation.Transaction"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful response with bank notes",
+                        "schema": {
+                            "type": "object",
+                            "additionalProperties": true
+                        }
+                    },
+                    "400": {
+                        "description": "Invalid request or error in calculation",
+                        "schema": {
+                            "type": "object",
+                            "additionalProperties": {
+                                "type": "string"
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "definitions": {
+        "presentation.Transaction": {
+            "description": "Represents a withdrawal transaction with the requested amount.",
+            "type": "object",
+            "required": [
+                "Amount"
+            ],
+            "properties": {
+                "Amount": {
+                    "description": "@Description The amount to withdraw.\n@Example 100",
+                    "type": "integer"
+                }
+            }
+        },
+        "presentation.WithdrawalHandler": {
+            "description": "Handles requests related to bank note transactions.",
+            "type": "object",
+            "properties": {
+                "calculator": {}
+            }
+        }
+    }
+}
