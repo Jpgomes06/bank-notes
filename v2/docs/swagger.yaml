@@ -1,0 +1,55 @@
+definitions:
+  presentation.Transaction:
+    description: Represents a withdrawal transaction with the requested amount.
+    properties:
+      Amount:
+        description: |-
+          @Description The amount to withdraw.
+          @Example 100
+        type: integer
+    required:
+    - Amount
+    type: object
+  presentation.WithdrawalHandler:
+    description: Handles requests related to bank note transactions.
+    properties:
+      calculator: {}
+    type: object
+info:
+  contact: {}
+  description: This is an API for a withdrawal system.
+  termsOfService: http://swagger.io/terms/
+  title: bank-notes
+  version: "1.0"
+paths:
+  /transaction:
+    post:
+      consumes:
+      - application/json
+      description: Processes the withdrawal amount and calculates the required bank
+        notes.
+      parameters:
+      - description: Transaction Data
+        in: body
+        name: transaction
+        required: true
+        schema:
+          $ref: '#/definitions/presentation.Transaction'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Successful response with bank notes
+          schema:
+            additionalProperties: true
+            type: object
+        "400":
+          description: Invalid request or error in calculation
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+      summary: Handle a withdrawal request
+      tags:
+      - Transactions
+swagger: "2.0"
